@@ -1,0 +1,67 @@
+.rd-content {
+  height: 100%;
+  border: 1px dashed gray;
+  overflow: auto;
+}
+
+#rd_engine {
+  height: 150%;
+  width: 200%;
+  background: #fff;
+  cursor: grab;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.cb-mnu {
+  position: absolute;
+  padding: 4px;
+  width: 20%;
+  background: white;
+  border: solid #c1c1c1 1px;
+  border-radius: 4px;
+  display: none;
+}
+
+#ddl_cb_element, #ddl_cb_t_element {
+  border-radius: 4px;
+  padding: 4px;
+  font-family: verdana, sans-serif;
+}
+
+#el_properties {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  padding: 5px;
+  -webkit-box-shadow: 10px 6px 10px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 6px 10px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 6px 10px -9px rgba(0, 0, 0, 0.75);
+  height: auto;
+  width: 30%;
+  background: white;
+  border: 1px solid lightgray;
+  display: none;
+}
+
+#el_properties button {
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 4px;
+  margin: 4px 0px 4px 0px;
+  cursor: pointer;
+  float: right;
+  outline: none;
+}
+
+.btn{
+  padding:4px;
+  font-family: verdana, sans-serif;
+  font-size:14px;
+  font-weight: 600;
+  background: white;
+  border-radius: 5px;
+  border:1px solid gray;
+  outline: none;
+}

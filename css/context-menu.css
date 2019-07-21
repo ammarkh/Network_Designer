@@ -1,0 +1,48 @@
+/*all code reseved for syriatel mobile telecome MIS-SDS-B SECTION 2019*/
+
+/*
+user context menu 
+*/
+
+.context-menu {
+  width: 200px;
+  height: auto;
+  box-shadow: 0 0 20 20 #666;
+  position: absolute;
+  display: none;
+  border: lightgrey solid 1px;
+  font-family: Verdana;
+  font-size: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.context-menu ul {
+  list-style: none;
+  padding: 0px !important;
+}
+
+.context-menu ul li:disabled {
+  color: orangered;
+}
+
+.context-menu ul li:not(.separator) {
+  padding: 10px 5px 10px 5px;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.context-menu ul li:hover {
+  background: #eee;
+  border-left: 4px solid #666;
+}
+
+.separator {
+  height: 1px;
+  background: #dedede;
+  margin: 2px 0px 2px 0px;
+}
+
+#addcb {
+  display: none;
+}

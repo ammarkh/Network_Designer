@@ -1,0 +1,887 @@
+<html>
+
+<head>
+    <title> template for radio design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/engine-theme.css">
+    <link rel="stylesheet" href="./css/context-menu.css">
+    <script type="text/javascript" src="./js/jquery.js"></script>
+    <script src="./js/jscolor.js" type="text/javascript"></script>
+    <script src="./js//main/menu.js"></script>
+    <script src="./js/network_elements/Antenna2port.js"></script>
+    <script src="./js/network_elements/Antenna1port.js"></script>
+    <script src="./js/network_elements/Antenna4port.js"></script>
+    <script src="./js/network_elements/Antenna6port.js"></script>
+    <script src="./js/network_elements/Antenna8port.js"></script>
+    <script src="./js/network_elements/Antenna10port.js"></script>
+    <script src="./js/network_elements/RRU.js"></script>
+    <script src="./js/network_elements/RRU4.js"></script>
+    <script src="./js/network_elements/MRFU.js"></script>
+    <script src="./js/network_elements/WRFU.js"></script>
+    <script src="./js/network_elements/splitter2.js"></script>
+    <script src="./js/network_elements/BTS_BBU.js"></script>
+    <script src='./js/network_elements/BTS_DBS.js'></script>
+    <script src="./js/network_elements/BTS_SMALL.js"></script>
+    <script src="./js/network_elements/MULX.JS"></script>
+    <script src="./js/network_elements/Mulx3.js"></script>
+    <script src="js/network_elements/duplx2.js"></script>
+    <script src="./js/network_elements/duplx3.js"></script>
+    <script src="./js/network_elements/port.js"></script>
+    <script src="./js/network_elements/dport.js"></script>
+
+    <script src="./js/network_elements/cable.js"></script>
+</head>
+
+<body>
+    <div style="overflow:auto;height:100%;">
+        <div class="menu">
+            <p class='title' onclick="openMenu();" style='cursor:pointer'>Network Elements
+                <span onclick="openMenu();" class="closeM"></span>
+            </p>
+            <button class="accordion">ANTENNA</button>
+            <div class="panel">
+                <p class='panel-content'>
+                    <a for="1prt" onclick="init(this)">1 Port</a>
+                    <a for="2prt" onclick="init(this)">2 Ports</a>
+                    <a for="4prt" onclick="init(this)">4 Ports</a>
+                    <a for="6prt" onclick="init(this)">6 Ports</a>
+                    <a for="8prt" onclick="init(this)">8 Ports</a>
+                    <a for="10prt" onclick="init(this)">10 Ports</a>
+                </p>
+            </div>
+
+            <button class="accordion">RF PARTS</button>
+            <div class="panel">
+                <p class='panel-content'>
+                    <a for="rru2" onclick="init(this)">RRU 2 - 1 </a>
+                    <a for="rru4" onclick="init(this)">RRU 4 - 1</a>
+                    <a for="mrfu" onclick="init(this)">RRU MRFU</a>
+                    <a for="wrfu" onclick="init(this)">RRU WRFU</a>
+
+                </p>
+            </div>
+
+            <button class="accordion">BTS</button>
+            <div class="panel">
+                <p class='panel-content'>
+                    <a for="vb" onclick="init(this)">BBU-3900</a>
+                    <a for="vd" onclick="init(this)">BBU-3910</a>
+                    <a for="dbs" onclick="init(this)">DBS-3900</a>
+                    <a for="bsmall" onclick="init(this)">Small - Cell </a>
+                </p>
+            </div>
+
+            <button class="accordion">Accessories</button>
+            <div class="panel">
+                <p class='panel-content'>
+                    <a for="dplx2" onclick="init(this)">Splitter 1 IN - 2 OUT </a>
+                    <a for="dplx3" onclick="init(this)">Splitter 1 IN - 3 OUT</a>
+                    <a for="multiplexer2" onclick="init(this)"> Duplexer 2 IN - 1 OUT</a>
+                    <a for="multiplexer3" onclick="init(this)"> Duplexer 3 IN - 1 OUT</a>
+                    <!-- <a for="splitter" onclick="init(this)">Splitter</a> -->
+
+                </p>
+            </div>
+
+            <!--element properties-->
+            <p class='title'>Element Properties</p>
+            <div class='rd_mnu_prop'>
+                <table>
+                    <tr>
+                        <td>PositionX</td>
+                        <td id="rd_px"></td>
+                    </tr>
+                    <tr>
+                        <td>positionY</td>
+                        <td id="rd_py"></td>
+                    </tr>
+                    <tr>
+                        <td>Color</td>
+                        <td><input type="text" class='jscolor' value='FF5129' /></td>
+                    </tr>
+                </table>
+
+            </div>
+            <p class='title'>SYRIATEL MIS-SDU-B </p>
+            <!--end of left menu.-->
+        </div>
+        <!--Engine-->
+        <div class="content">
+            <!--add user context menu here. -->
+            <div id='context-Menu' class='context-menu'>
+                <ul>
+                    <li id='nw_tmp' onclick='location.reload();javascript:void(0);'>New Template</li>
+                    <li onclick="initCable()" id='addcb'>Add Cable</li>
+                    <li class='separator'></li>
+                    <li onclick="deleteElement()">Delete This Element</li>
+                    <li class='separator'></li>
+                    <li onclick="saveTemplate()">Save as Template </li>
+                    <li class="separator"></li>
+                    <li> Properties </li>
+                </ul>
+            </div>
+            <!--end user context menu. -->
+            <!--engine graphical space. -->
+            <div class='rd-content'>
+                <span class='openM' onclick="openMenu();"></span>
+                <svg id='rd_engine'>
+                    <g id='rd_g'></g>
+                </svg>
+            </div>
+            <!-- menu of cable-->
+            <div class='cb-mnu'>
+                New Cable Form
+                <hr />
+                Cable From :
+                <label id='cb_element'>
+
+                </label>
+                <br />
+                <br />
+                Port<br />
+                <select id='ddl_cb_element'>
+
+                </select>
+
+                <hr />
+                Cable To:
+                <label id='cb_t_element'>
+
+                </label>
+                <br />
+                <br />
+                target port <br>
+                <select id="ddl_cb_t_element">
+
+                </select>
+                <hr />
+                <center>
+                    <button class='btn' onclick="addCable()">add cable</button>
+                    <button class='btn' onclick="CancelCable()">cancel</button>
+                </center>
+            </div>
+
+            <!--menu of element properties -->
+            <div id='el_properties'>
+                element name
+                <hr>
+                <div style="background: rgb(250, 250, 250);">
+                    ID: 0000
+                    <br>
+                    Type: type of element
+                    <hr>
+                    List Of Ports
+                    <br>
+                    port1 <br>
+                    port2 <br>
+                    port3 <br>
+                    <br>
+                </div>
+                <button>
+                    Cancel
+                </button>
+
+            </div>
+            <!--end of engine graphical space.-->
+        </div>
+    </div>
+</body>
+
+
+
+
+
+<!--all code will add here is javascript please this code is very sensetive becareful
+----------------------------2019 -------------------------------------------------
+---------------------all code supported by a.m.k-it@hotmail.com-------------------
+----------------------you will will found the open source from animation engine--- 
+--------------and you will get provide for upgrade on version at github ----------
+----------------------------------------2019 - 2020------------------------------->
+
+
+<!--javascript code will be build here ... -->
+<script type="text/javascript">
+
+
+    isStart();
+    function isStart() {
+        if (!window.chrome)
+            window.close();
+        var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (!isChrome)
+            alert('cannot use engine on this browser you need to use chrome ');
+
+    }
+
+
+
+    /*
+    accordion animation , this animate support by w3school.com 
+    */
+    var acc = document.getElementsByClassName("accordion");
+
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+    /*
+     user context menu, this section designed by SYRIATEL MIS_SDS_B SECTION 
+     */
+
+    var contextMenu = document.querySelector('#context-Menu'); // define context menu from DOM
+    window.onclick = hideContextMenu; // call close context menu after press in window.
+
+    /* function for close[hide] user context menu after press on it .*/
+    function hideContextMenu() {
+        contextMenu.style.display = 'none';
+    }
+
+    //open user context menu instead of browser context-menu
+    if (document.addEventListener) { // IE >= 9; other browsers
+        document.addEventListener('contextmenu', function (e) {
+            //alert("You've tried to open context menu"); //here you draw your own menu
+            contextMenu.style.display = 'block';
+            //display user context menu on top left mouse pointer when user press right click
+            contextMenu.style.left = e.clientX + 'px';
+            contextMenu.style.top = e.clientY + 'px';
+            e.preventDefault();
+        }, false);
+    } else { // IE < 9
+        document.attachEvent('oncontextmenu', function () {
+            //alert("You've tried to open context menu");
+
+            contextMenu.style.display = 'block';
+            //display user context menu on top left mouse pointer when user press right click
+            contextMenu.style.left = e.clientX + 'px';
+            contextMenu.style.top = e.clientY + 'px';
+
+            window.event.returnValue = false;
+        });
+    }
+
+    /*menu bar action */
+    function openMenu() {
+        var menu = document.getElementsByClassName("menu")[0];
+        var content = document.getElementsByClassName("content")[0];
+        var opbtn = document.getElementsByClassName('openM')[0];
+        if (menu.style.width == '20%') {
+            menu.style.width = "0%";
+            content.style.width = "100%";
+            opbtn.style.visibility = 'visible';
+        } else {
+            menu.style.width = "20%";
+            content.style.width = "80%";
+            opbtn.style.visibility = 'hidden';
+        }
+    }
+
+
+    /**************************************code for engine ******************************************/
+    /**************************************all code inside this section******************************/
+    /**************************************using for engine function*********************************/
+
+    /******global variables*******/
+    var engine_elem = [];
+    var rd_el_indx = 0;
+    var cur_x = 0, cur_y = 0;
+    var id = null;
+    var elem_type;
+    var cur_elem = null;
+    //cable element
+    var el_c_id = null;
+    var el_c_t_id = null;
+    var elem_c_c = null;
+    var elem_t_c = null;
+
+    /*************Difination DOM ELEMENT*****************/
+    var svg = document.querySelector('#rd_engine');
+    var rd_px = document.querySelector('#rd_px');
+    var rd_py = document.querySelector('#rd_py');
+    var rd_clr = document.getElementsByClassName('jscolor')[0];
+    var rd_g = document.querySelector('#rd_g');
+    var cb_element = document.querySelector('#cb_element');
+    var cb_t_element = document.querySelector('#cb_t_element');
+    var ddl_cb_element = document.querySelector('#ddl_cb_element');
+    var ddl_cb_t_element = document.querySelector('#ddl_cb_t_element');
+    var cable_menu = document.getElementsByClassName('cb-mnu')[0];
+    var cableContrl = document.querySelector('#addcb');
+    /*************************************************************/
+    /*************************************************************/
+    /**********************function of engine*********************/
+
+    /*****event listener**********/
+    svg.addEventListener('mousemove', getPosition);
+    svg.addEventListener('click', createElement);
+    svg.addEventListener('dblclick', catchElement);
+    svg.addEventListener('click', initElementToCable);
+
+
+    // support function 
+    var checkIndex = (item) => {
+        var el_in = 0;
+        for (var i = 0; i < engine_elem.length; i++) {
+            if (engine_elem[i].name == item) {
+                el_in++;
+            }
+        }
+        return el_in;
+    }
+
+    //init element in engine
+    function init(el) {
+        var type = el.getAttribute('for');
+
+        switch (type) {
+            case '1prt':
+
+                id = 'ANTENNA_1P-' + (checkIndex('prt1') + 1);
+                elem_type = type;
+                break;
+            case '2prt':
+                id = 'ANTENNA_2P-' + (checkIndex('prt2') + 1);
+                elem_type = type;
+                break;
+            case '4prt':
+                id = 'ANTENNA_4P-' + (checkIndex('prt4') + 1);
+                elem_type = type;
+                break;
+            case '6prt':
+                id = 'ANTENNA_6P-' + (checkIndex('prt6') + 1);
+                elem_type = type;
+                break;
+            case '8prt':
+                id = 'ANTENNA_8P-' + (checkIndex('prt8') + 1);
+                elem_type = type;
+                break;
+            case '10prt':
+                id = 'ANTENNA_10P-' + (checkIndex('prt10') + 1);
+                elem_type = type;
+                break;
+            case 'rru2':
+                id = "RRU2-" + (checkIndex('rru2') + 1);
+                elem_type = type;
+                break;
+            case 'rru4':
+                id = "RRU4-" + (checkIndex('rru4') + 1);
+                elem_type = type;
+                break;
+            case 'mrfu':
+                id = 'RRU-MRFU-' + (checkIndex('mrfu') + 1);
+                elem_type = type;
+                break;
+            case 'wrfu':
+                id = 'RRU-WRFU-' + (checkIndex('wrfu') + 1);
+                elem_type = type;
+                break;
+            case 'sp2':
+                id = 'sp2' + rd_el_indx;
+                elem_type = type;
+                break;
+            case 'vb':
+                id = 'BBU_3900-' + (checkIndex('BBU-V-B') + 1);
+                elem_type = type;
+                break;
+            case 'vd':
+                id = 'BBU_3910-' + (checkIndex('BBU-V-D') + 1);
+                elem_type = type;
+                break;
+            case 'dbs':
+                id = 'DBS_3900-' + (checkIndex('dbs') + 1);
+                elem_type = type;
+                break;
+            case 'bsmall':
+                id = 'SMALL_CELL-' + (checkIndex('bsmall') + 1);
+                elem_type = type;
+                break;
+            case 'multiplexer2':
+                id = 'DUPLEXER2-' + (checkIndex('dplx2') + 1);
+                elem_type = type;
+                break;
+            case 'multiplexer3':
+                id = 'DUPLEXER3-' + (checkIndex('dplx3') + 1);
+                elem_type = type;
+                break;
+            case 'dplx3':
+                id = 'SPLITTER3-' + (checkIndex('spl3') + 1);
+                elem_type = type;
+                break;
+            case 'dplx2':
+                id = 'SPLITTER2-' + (checkIndex('spl2') + 1);
+                elem_type = type;
+                break;
+            case 'splitter':
+                id = 'splitter' + rd_el_indx;
+                elem_type = type;
+                break;
+        }
+
+    }
+
+    // create element
+    function createElement() {
+        if (elem_type != null) {
+
+            switch (elem_type) {
+                case '1prt':
+                    let Ant1p = new Antenna1Port(id, cur_x, cur_y, 'prt1');
+                    Ant1p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant1p.Element);
+                    engine_elem.push(Ant1p);
+                    break;
+                case '2prt':
+                    let Ant2p = new Antenna2Port(id, cur_x, cur_y, 'prt2');
+                    Ant2p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant2p.Element);
+                    engine_elem.push(Ant2p);
+                    break;
+                case '4prt':
+                    let Ant4p = new Antenna4Port(id, cur_x, cur_y, 'prt4');
+                    Ant4p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant4p.Element);
+                    engine_elem.push(Ant4p);
+                    break;
+                case '6prt':
+                    let Ant6p = new Antenna6Port(id, cur_x, cur_y, 'prt6');
+                    Ant6p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant6p.Element);
+                    engine_elem.push(Ant6p);
+                    break;
+                case '8prt':
+                    let Ant8p = new Antenna8Port(id, cur_x, cur_y, 'prt8');
+                    Ant8p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant8p.Element);
+                    engine_elem.push(Ant8p);
+                    break;
+                case '10prt':
+                    let Ant10p = new Antenna10Port(id, cur_x, cur_y, 'prt10');
+                    Ant10p.fillColor = rd_clr.value;
+                    rd_g.appendChild(Ant10p.Element);
+                    engine_elem.push(Ant10p);
+                    break;
+                case 'rru2':
+                    let rru2 = new RRU2(id, cur_x, cur_y, 'rru2');
+                    rru2.fillColor = rd_clr.value;
+                    rd_g.appendChild(rru2.Element);
+                    engine_elem.push(rru2);
+                    break;
+                case 'rru4':
+                    let rru4 = new RRU4(id, cur_x, cur_y, 'rru4');
+                    rru4.fillColor = rd_clr.value;
+                    rd_g.appendChild(rru4.Element);
+                    engine_elem.push(rru4);
+                    break;
+                case 'mrfu':
+                    let mrfu = new MRFU(id, cur_x, cur_y, 'mrfu');
+                    mrfu.fillColor = rd_clr.value;
+                    rd_g.appendChild(mrfu.Element);
+                    engine_elem.push(mrfu);
+                    break;
+                case 'wrfu':
+                    let wrfu = new WRFU(id, cur_x, cur_y, 'wrfu');
+                    wrfu.fillColor = rd_clr.value;
+                    rd_g.appendChild(wrfu.Element);
+                    engine_elem.push(wrfu);
+                    break;
+                case 'sp2':
+                    let sp2 = new Splitter2way(id, cur_x, cur_y);
+                    sp2.fillColor = rd_clr.value;
+                    rd_g.appendChild(sp2.Element);
+                    engine_elem.push(sp2);
+                    break;
+                case 'vb':
+                    let vb = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-B');
+                    vb.fillColor = rd_clr.value;
+                    rd_g.appendChild(vb.Element);
+                    engine_elem.push(vb);
+                    break;
+                case 'vd':
+                    let vd = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-D');
+                    vd.fillColor = rd_clr.value;
+                    rd_g.appendChild(vd.Element);
+                    engine_elem.push(vd);
+                    break;
+                case 'dbs':
+                    let dbs = new BTS_DBS(id, cur_x, cur_y, 'dbs');
+                    dbs.fillColor = rd_clr.value;
+                    rd_g.appendChild(dbs.Element);
+                    engine_elem.push(dbs);
+                    break;
+                case 'bsmall':
+                    let bsmall = new BTS_SMALL(id, cur_x, cur_y, 'bsmall');
+                    bsmall.fillColor = rd_clr.value;
+                    rd_g.appendChild(bsmall.Element);
+                    engine_elem.push(bsmall);
+                    break;
+                case 'multiplexer2':
+                    let mult2 = new MULX(id, cur_x, cur_y, 'dplx2');
+                    mult2.fillColor = rd_clr.value;
+                    rd_g.appendChild(mult2.Element);
+                    engine_elem.push(mult2);
+                    break;
+                case 'multiplexer3':
+                    let mult3 = new MULX3(id, cur_x, cur_y, 'dplx3');
+                    mult3.fillColor = rd_clr.value;
+                    rd_g.appendChild(mult3.Element);
+                    engine_elem.push(mult3);
+                    break;
+                case 'dplx3':
+                    let dplx3 = new DIPLX3(id, cur_x, cur_y, 'spl3');
+                    dplx3.fillColor = rd_clr.value;
+                    rd_g.appendChild(dplx3.Element);
+                    engine_elem.push(dplx3);
+                    break;
+                case 'dplx2':
+                    let dplx2 = new DIPLX2(id, cur_x, cur_y, 'spl2');
+                    dplx2.fillColor = rd_clr.value;
+                    rd_g.appendChild(dplx2.Element);
+                    engine_elem.push(dplx2);
+                    break;
+                case 'splitter':
+                    let splitter = new Splitter(id, cur_x, cur_y);
+                    splitter.fillColor = rd_clr.value;
+                    rd_g.appendChild(splitter.Element);
+                    engine_elem.push(splitter);
+                    break;
+            }
+
+            id = null;
+            rd_el_indx++;
+            elem_type = null;
+        }
+    }
+
+
+    //get position on svg 
+    function getPosition(event) {
+
+        var point = svg.createSVGPoint();
+        if (event.path[0].tagName == "svg") {
+
+            var pt = point.matrixTransform(svg.getScreenCTM().inverse());
+
+            var screenX = point.x = event.clientX;
+            var screenY = point.y = event.clientY;
+
+            var pt = point.matrixTransform(svg.getScreenCTM().inverse());
+            //console.log(Math.round(pt.x) + " " + Math.round(pt.y));
+
+            var x = Math.round(pt.x);
+            var y = Math.round(pt.y);
+
+            rd_px.innerHTML = cur_x = x;
+            rd_py.innerHTML = cur_y = y;
+
+            //change mouse pointer
+            if (elem_type != null) {
+                svg.style.cursor = 'pointer';
+            } else {
+                svg.style.cursor = 'grab';
+            }
+
+            // change Elment position
+            if (cur_elem != null) {
+                cur_elem.update(cur_x, cur_y);
+            }
+
+        }
+    }
+
+    //catch element 
+    function catchElement(event) {
+
+        if (event.path[0].tagName != 'svg')
+            if (cur_elem != null) {
+                cur_elem.Element.removeAttribute('stroke-dasharray');
+                cur_elem.Element.removeAttribute('opacity');
+                cur_elem = null;
+                id = null;
+            } else {
+                id = event.path[0].id;
+                cur_elem = engine_elem.find(x => x.id == id);
+
+                cur_elem.Element.setAttribute('stroke-dasharray', '4 2');
+                cur_elem.Element.setAttribute('opacity', '0.5');
+            }
+    }
+
+    // init element to add cable 
+    function initElementToCable(event) {
+        if (event.path[0].tagName != 'svg') {
+            if (elem_c_c != null && elem_t_c != null)
+                reassignCb();
+            if (elem_c_c != null && event.path[0].id != el_c_id) {
+                el_c_t_id = event.path[0].id;
+                elem_t_c = engine_elem.find(x => x.id == el_c_t_id);
+                elem_t_c.Element.setAttribute('stroke-dasharray', '4 2');
+                cableContrl.style.display = 'block';
+
+            } else {
+                el_c_id = event.path[0].id;
+                elem_c_c = engine_elem.find(x => x.id == el_c_id);
+                elem_c_c.Element.setAttribute('stroke-dasharray', '4 2');
+
+            }
+        } else { // if press on svg without element.
+            reassignCb();
+        }
+
+    }
+
+    //delete elment 
+    function deleteElement() {
+
+        if (cur_elem != null) {
+            //found element
+            var index = engine_elem.findIndex(x => x.id == id);
+            var elem_fordelete = engine_elem.find(x => x.id == id);
+
+            // if element is empty link delete
+            if (elem_fordelete.IsEmpty) {
+                // delete element directly.
+                rd_g.removeChild(elem_fordelete.Element);
+                engine_elem.splice(index, 1);
+                cur_elem = null;
+                id = null;
+            }
+            else {
+                //delete all cables link with it 
+                for (var i = 0; i < elem_fordelete.port.length; i++) {
+                    if (elem_fordelete.port[i].isLinked) {
+                        // get cable link on port 
+                        var portcable = elem_fordelete.port[i].Cble;
+
+
+                        if (portcable.FElement !== elem_fordelete.id) {
+                            var felem = engine_elem.find(ce => ce.id == portcable.FElement);
+                            var fport = felem.port.find(c => c.id == portcable.FPort);
+                            //reassign
+                            fport.Link = null;
+                            fport.isLinked = false;
+                            fport.Cble = null;
+                            //console.log(felem.IsEmpty);
+
+                            if (felem.IsEmpty) {
+                                //delete element if empty link
+                                // console.log(felem.IsEmpty);
+                                rd_g.removeChild(felem.Element);
+                                index = engine_elem.findIndex(x => x.id == felem.id);
+                                engine_elem.splice(index, 1);
+                            }
+
+                        } else {
+                            var telem = engine_elem.find(ce => ce.id == portcable.TElement);
+                            var tport = telem.port.find(c => c.id == portcable.TPort);
+                            //reassign
+                            tport.Link = null;
+                            tport.isLinked = false;
+                            tport.Cble = null;
+
+
+                            if (telem.IsEmpty) {
+                                //delete
+
+                                rd_g.removeChild(telem.Element);
+                                index = engine_elem.findIndex(x => x.id == telem.id);
+                                engine_elem.splice(index, 1);
+
+
+                            }
+                        }
+                        rd_g.removeChild(portcable.Element);
+                        index = engine_elem.findIndex(x => x.id == portcable.id);
+                        engine_elem.splice(index, 1);
+                    }
+                }
+
+
+                rd_g.removeChild(elem_fordelete.Element);
+
+                index = engine_elem.findIndex(x => x.id == id);
+                engine_elem.splice(index, 1);
+                //resign element
+                cur_elem = null;
+                id = null;
+            }
+
+            reassignCb();
+        }
+    }
+
+
+    //add cable for element
+
+    function initCable() {
+        if (elem_c_c != null && elem_t_c != null && engine_elem.length > 1) {
+            cb_element.innerHTML = elem_c_c.id;
+            cb_t_element.innerHTML = el_c_t_id;
+
+            var title = document.createElement('option');
+            title.text = 'select port';
+            ddl_cb_element.appendChild(title);
+            for (var i = 0; i < elem_c_c.port.length; i++) {
+                if (!elem_c_c.port[i].isLinked) { // check if port not link with cable
+                    var opt = document.createElement('option');
+                    opt.value = elem_c_c.port[i].Type;
+                    opt.text = elem_c_c.port[i].Id;
+
+                    ddl_cb_element.appendChild(opt);
+                }
+            }
+
+            initTargetCable(elem_t_c);
+
+            //show add cable menu
+            if (ddl_cb_element.options.length == 1 || ddl_cb_t_element.options.length == 1) {
+                reassignCb();
+            } else {
+                cable_menu.style.display = 'block';
+                cable_menu.style.left = elem_t_c.eX + 'px';
+                cable_menu.style.top = elem_t_c.eY + 'px';
+            }
+        }
+    }
+
+    function initTargetCable(elem) {
+
+        var title = document.createElement('option');
+        title.text = 'select port';
+        ddl_cb_t_element.appendChild(title);
+        for (var i = 0; i < elem.port.length; i++) {
+            if (!elem.port[i].isLinked) {
+                var opt = document.createElement('option');
+                opt.value = elem.port[i].Type;
+                opt.text = elem.port[i].Id;
+
+                ddl_cb_t_element.appendChild(opt);
+            }
+        }
+    }
+
+
+
+
+    //add cable to element 
+    function addCable() {
+
+        var cb = ddl_cb_element.options[ddl_cb_element.selectedIndex].text;
+        var tcb = ddl_cb_t_element.options[ddl_cb_t_element.selectedIndex].text;
+
+        var prt = elem_c_c.port.find(x => x.id == cb);
+        var elem2 = elem_t_c;
+        var prt2 = elem2.port.find(p => p.id == tcb);
+
+
+        var cb_id = 'cb_' + cb + '_' + tcb;
+        var cable = new Cable(cb_id, prt.pX, prt.pY, prt2.pX, prt2.pY);
+        cable.FElement = elem_c_c.id;
+        cable.TElement = elem2.id;
+        cable.FPort = cb;
+        cable.TPort = tcb;
+        prt.linkId = cable.id;
+        prt2.linkId = cable.id;
+        prt.isLinked = true;
+        prt2.isLinked = true;
+        prt.Cble = cable;
+        prt2.Cble = cable;
+        rd_g.appendChild(cable.Element);
+        engine_elem.push(cable);
+
+        reassignCb();
+    }
+
+
+    var CancelCable = () => {
+        reassignCb();
+    }
+
+    //reassign cable element
+
+    function reassignCb() {
+        cableContrl.style.display = 'none';
+        cable_menu.style.display = 'none';
+
+        if (elem_c_c != null && el_c_t_id != null) {
+            elem_c_c.Element.removeAttribute('stroke-dasharray');
+            elem_t_c.Element.removeAttribute('stroke-dasharray');
+        }
+
+        //remove all element from port ddl
+        var length = ddl_cb_element.options.length;
+        for (i = length; i >= 0; i--) {
+            ddl_cb_element.options[i] = null;
+        }
+
+        // remove all element from port target element ddl
+        var length = ddl_cb_t_element.options.length;
+        for (i = length; i >= 0; i--) {
+            ddl_cb_t_element.options[i] = null;
+        }
+        //reassign all element
+        elem_c_c = null;
+        el_c_id = null;
+        elem_t_c = null;
+        el_c_t_id = null;
+    }
+
+    // saveTemplate();
+    // save template function
+
+    /**
+      *---------------------------server function --------------------------------*
+      *---------------------------Function not -----------------------------------*
+      **/
+
+    function saveTemplate() {
+        /*  readJSON('D:\\data.jsons');
+          function readJSON(path) {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', path, true);
+              xhr.responseType = 'blob';
+              xhr.onload = function (e) {
+                  if (this.status == 200) {
+                      var file = new File([this.response], 'temp');
+                      var fileReader = new FileReader();
+                      fileReader.addEventListener('load', function () {
+                          console.log(fileReader);
+                      });
+                      fileReader.readAsText(file);
+                  }
+              }
+              xhr.send();
+          }*/
+        /* $(document).ready(function () {
+             $.get('./data.json', function (data) {
+                 console.log(data);
+             });
+         });*/
+
+
+
+
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: './data.json',
+                data: JSON.stringify(engine_elem),
+                success: function (res) {
+                    console.log('success');
+                },
+                dataType: 'json'
+            });
+        });
+    }
+
+</script>
+
+</html>

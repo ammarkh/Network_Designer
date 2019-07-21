@@ -1,0 +1,269 @@
+/*all code has receved for syriatel MIS-SDU-B SECTION 2019*/
+
+/*
+  style for theme of page 
+*/
+
+/*body linear*/
+
+body {
+  background: rgba(184, 184, 184, 1);
+  background: -moz-linear-gradient( left, rgba(184, 184, 184, 1) 0%, rgba(173, 173, 173, 1) 35%, rgba(168, 168, 168, 1) 51%, rgba(191, 191, 191, 1) 80%, rgba(207, 207, 207, 1) 100%);
+  background: -webkit-gradient( left top, right top, color-stop(0%, rgba(184, 184, 184, 1)), color-stop(35%, rgba(173, 173, 173, 1)), color-stop(51%, rgba(168, 168, 168, 1)), color-stop(80%, rgba(191, 191, 191, 1)), color-stop(100%, rgba(207, 207, 207, 1)));
+  background: -webkit-linear-gradient( left, rgba(184, 184, 184, 1) 0%, rgba(173, 173, 173, 1) 35%, rgba(168, 168, 168, 1) 51%, rgba(191, 191, 191, 1) 80%, rgba(207, 207, 207, 1) 100%);
+  background: -o-linear-gradient( left, rgba(184, 184, 184, 1) 0%, rgba(173, 173, 173, 1) 35%, rgba(168, 168, 168, 1) 51%, rgba(191, 191, 191, 1) 80%, rgba(207, 207, 207, 1) 100%);
+  background: -ms-linear-gradient( left, rgba(184, 184, 184, 1) 0%, rgba(173, 173, 173, 1) 35%, rgba(168, 168, 168, 1) 51%, rgba(191, 191, 191, 1) 80%, rgba(207, 207, 207, 1) 100%);
+  background: linear-gradient( to right, rgba(184, 184, 184, 1) 0%, rgba(173, 173, 173, 1) 35%, rgba(168, 168, 168, 1) 51%, rgba(191, 191, 191, 1) 80%, rgba(207, 207, 207, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8b8b8', endColorstr='#cfcfcf', GradientType=1);
+}
+
+/*scroll for body*/
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 10px;
+  background-image: -webkit-linear-gradient( 90deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 75%, transparent 75%, transparent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+/*scroll for menu*/
+
+.menu::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+  background-color: #cccccc;
+}
+
+.menu::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  background-image: -webkit-linear-gradient( 90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 25%, transparent 100%, rgba(0, 0, 0, 1) 75%, transparent);
+}
+
+.menu {
+  float: left;
+  width: 20%;
+  text-align: center;
+  background: #303030;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-transition-property: width;
+  /* Safari */
+  -webkit-transition-duration: 1s;
+  /* Safari */
+  /*-webkit-transition-delay: 2s; /* Safari */
+  transition-property: width;
+  transition-duration: 1s;
+  /*transition-delay: 2s;*/
+}
+
+.menu a {
+  background-color: #e5e5e5;
+  padding: 8px;
+  margin-top: 7px;
+  display: block;
+  width: 100%;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu a:hover {
+  background: #ff9800;
+  color: white;
+}
+
+.menu .title {
+  background: #616161;
+  padding: 18px;
+  margin: 0;
+  color: #fff;
+}
+
+.content {
+  float: left;
+  width: 80%;
+  padding: 0 20px;
+  height: 100%;
+  transition: width 1s;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .content, .right {
+    width: 100%;
+  }
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+/*accordion*/
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: "\002B";
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+/*content of element in accordion*/
+
+.panel-content {
+  max-height: 30%;
+  overflow-y: scroll;
+}
+
+/*scroll style*/
+
+.panel-content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+.panel-content::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+  background-color: #f90;
+  background-image: -webkit-linear-gradient( 90deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+}
+
+/*radio element left menu properties*/
+
+.rd_mnu_prop {
+  /*background-color: #dfdfdf;*/
+  padding: 8px;
+  width: 100%;
+}
+
+.rd_mnu_prop table {
+  width: 100%;
+}
+
+.rd_mnu_prop table tr td {
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  text-align: center;
+  color: orangered;
+  font-family: "Segoe UI", arial, sans-serif;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.rd_mnu_prop span {
+  border: 4px #777 dotted;
+  background: #ffffff;
+  padding: 6px 12px;
+  margin: none;
+  text-align: center;
+  width: 100%;
+  color: rgb(255, 94, 0);
+}
+
+.rd_mnu_prop input[type="text"] {
+  width: 70%;
+  padding: 4px;
+  border: none;
+  text-align: center;
+}
+
+/*
+.rd_mnu_prop button {
+  background: white;
+  color: orangered;
+  border: 2px solid orangered;
+  padding: 16px 32px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 3px;
+  font-weight: bold;
+  outline: none;
+}
+
+.rd_mnu_prop button:hover {
+  background: orangered;
+  color: white;
+}
+*/
+
+.openM {
+  visibility: hidden;
+}
+
+.openM::after {
+  padding: 10px;
+  content: "\2630";
+  background: #616161;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.closeM::after {
+  font-size: 16px;
+  float: right;
+  content: "\2613";
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
+  font-weight: bold;
+}
