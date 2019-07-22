@@ -3,7 +3,7 @@
  */
 
 class Antenna8Port {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
@@ -13,6 +13,7 @@ class Antenna8Port {
     this.id = id;
     this.eX = x;
     this.eY = y;
+    this.type = type = "Antenna8Port";
     this.isEmpty = true;
     this.cport = [
       //  new DoublePort(this.id + "prt1_t" + 0, 0, "t", x + 1, y + 210),
@@ -125,8 +126,8 @@ class Antenna8Port {
     return this.el.getAttribute("points");
   }
 
-  get type() {
-    return this.el.getAttribute("type");
+  get Type() {
+    return this.type;
   }
 
   set Color(color = "C1C1C1") {

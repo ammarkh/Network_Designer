@@ -106,9 +106,7 @@ class Antenna4Port {
     return this.el.getAttribute("points");
   }
 
-  get type() {
-    return this.el.getAttribute("type");
-  }
+  
 
   set Color(color = "C1C1C1") {
     this.el.setAttribute("stroke", color);

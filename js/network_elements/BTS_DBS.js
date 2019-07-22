@@ -1,11 +1,12 @@
 class BTS_DBS {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
     this.el.setAttribute("stroke-width", this.width);
     this.el.setAttribute("stroke", this.Color || "#181818");
     this.id = id;
+    this.type = type = "BTS-DBS-3900";
     this.name = name;
     this.eX = x;
     this.eY = y;
@@ -135,6 +136,10 @@ class BTS_DBS {
     return bts_el;
   }
 
+  get Type() {
+    return this.type;
+  }
+
   get Points() {
     return this.el.getAttribute("points");
   }
@@ -150,12 +155,8 @@ class BTS_DBS {
     return this.isEmpty;
   }
 
-  get type() {
-    return this.el.getAttribute("type");
-  }
-
-  set type(value) {
-    this.el.setAttribute("type", value);
+  set Type(value) {
+    this.type = value;
   }
 
   set Color(color = "C1C1C1") {

@@ -31,7 +31,7 @@
     <script src="./js/network_elements/dport.js"></script>
 
     <script src="./js/network_elements/cable.js"></script>
-    <script src="./js/Controller/serializer.js"></script>
+    <script src="./js/Controller/templateserializer.js"></script>
 </head>
 
 <body>
@@ -113,6 +113,7 @@
             <div id='context-Menu' class='context-menu'>
                 <ul>
                     <li id='nw_tmp' onclick='location.reload();javascript:void(0);'>New Template</li>
+                    <li class='separator'></li>
                     <li onclick="initCable()" id='addcb'>Add Cable</li>
                     <li class='separator'></li>
                     <li onclick="deleteElement()">Delete This Element</li>
@@ -194,27 +195,22 @@
                 <p>
                     <h4>Template Name</h4>
                     <input type="text" placeholder="insert template name " id='temp_name' />
+                    <label id="temp_name_msg"></label>
                 </p>
                 <p>
                     Becarful This Template Will Contains The Elements Below
                     <table id='temp_element'>
                         <thead>
                             <caption>Template Elements</caption>
-                            <tr>
-                                <th> Name </th>
-                                <th>Type</th>
-                                <th>Point X</th>
-                                <th>Point Y</th>
-                            </tr>
                         </thead>
                     </table>
                 </p>
                 <!--template control-->
                 <p>
-                    <button onclick="saveTemplateInServer()">
+                    <button onclick="saveTemplateInServer()" class="temp_btn green">
                         Save template
                     </button>
-                    <button>
+                    <button onclick="temp_panel.style.display ='none'; " class='temp_btn gray'>
                         Cancel
                     </button>
                 </p>
@@ -353,6 +349,7 @@
     var temp_table = document.querySelector('#temp_element');
     var temp_panel = document.querySelector('#rd-template-form');
     var temp_name = document.querySelector('#temp_name');
+    var temp_name_msg = document.querySelector('#temp_name_msg');
     /*************************************************************/
     /*************************************************************/
     /**********************function of engine*********************/
@@ -537,13 +534,13 @@
                     engine_elem.push(sp2);
                     break;
                 case 'vb':
-                    let vb = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-B');
+                    let vb = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-B', 'BBU-3900');
                     vb.fillColor = rd_clr.value;
                     rd_g.appendChild(vb.Element);
                     engine_elem.push(vb);
                     break;
                 case 'vd':
-                    let vd = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-D');
+                    let vd = new BTS_BBU(id, cur_x, cur_y, 'BBU-V-D', 'BBU-3910');
                     vd.fillColor = rd_clr.value;
                     rd_g.appendChild(vd.Element);
                     engine_elem.push(vd);
@@ -880,6 +877,27 @@
       **/
 
     function templateSerialize() {
+        while (temp_table.rows.length > 0) {
+            temp_table.deleteRow(0);
+        }
+        //recreate header
+        var tempHead = document.createElement('thead');
+        var tempTr = document.createElement('tr');
+        var thName = document.createElement('th');
+        thName.innerText = "Name";
+        tempTr.appendChild(thName);
+        var thType = document.createElement('th');
+        thType.innerText = "Type";
+        tempTr.appendChild(thType);
+        var thpointx = document.createElement('th');
+        thpointx.innerText = "Point X";
+        tempTr.appendChild(thpointx);
+        var thpointy = document.createElement('th');
+        thpointy.innerText = "Point Y";
+        tempTr.appendChild(thpointy);
+        tempHead.appendChild(tempTr);
+        temp_table.appendChild(tempHead);
+        //recreate body
         var templateBody = document.createElement('tbody');
         engine_elem.forEach((item) => {
             if (item.type != "cable") {
@@ -906,8 +924,10 @@
     }
 
     function saveTemplate() {
+        if (engine_elem.length > 0) {
+            templateSerialize();
+        }
 
-        templateSerialize();
         /*  readJSON('D:\\data.jsons');
           function readJSON(path) {
               var xhr = new XMLHttpRequest();
@@ -952,14 +972,31 @@
         // console.log(template);
     }
 
-    //save template element.
+    //save template element in server.
 
     saveTemplateInServer = () => {
-        var ser = new Serializer(engine_elem, 'xml', temp_name.value, 1);
+
+
+        if (temp_name.value == "") {
+            temp_name_msg.style.color = "red";
+            temp_name_msg.innerText = "canno't use empty name for template!";
+        }
+        else {
+            temp_name_msg.innerText = "";
+            temp_name_msg.style.color = "green";
+        }
+        var ser = new TemplateSerializer(engine_elem, 'xml', temp_name.value, 1);
         ser.serialize();
-        console.log(ser.Template);
+
+
+
     }
 
+
+/********************************************************************************
+************************************RADIO DESIGN*********************************
+*********************************************************************************
+*********************************************************************************/
 
 </script>
 

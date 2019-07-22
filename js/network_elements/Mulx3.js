@@ -1,5 +1,5 @@
 class MULX3 {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
@@ -7,6 +7,7 @@ class MULX3 {
     this.el.setAttribute("stroke", this.Color || "#181818");
     this.id = id;
     this.name = name;
+    this.type = type = "DUPLIXER 3 IN 1 OUT";
     this.isEmpty = true;
     this.eX = x;
     this.eY = y;
@@ -75,12 +76,12 @@ class MULX3 {
     return this.isEmpty;
   }
 
-  get type() {
-    return this.el.getAttribute("type");
+  get Type() {
+    return this.type;
   }
 
-  set type(value) {
-    this.el.setAttribute("type", value);
+  set Type(value) {
+    this.type = value;
   }
 
   set Color(color = "C1C1C1") {

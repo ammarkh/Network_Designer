@@ -305,7 +305,27 @@ html {
   height: auto;
 }
 
-#temp_element tr td{
-  border:1px solid lightgray;
+#temp_element tr td {
+  border: 1px solid lightgray;
   text-align: center;
+}
+
+.temp_btn {
+  /*background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.green {
+  background: forestgreen;
+}
+
+.gray {
+  background: #303030;
 }

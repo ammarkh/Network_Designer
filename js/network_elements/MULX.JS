@@ -1,5 +1,5 @@
 class MULX {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
@@ -7,6 +7,7 @@ class MULX {
     this.el.setAttribute("stroke", this.Color || "#181818");
     this.id = id;
     this.name = name;
+    this.type = type = "DUPLIXER 2 IN 1 OUT";
     this.isEmpty = true;
     this.eX = x;
     this.eY = y;
@@ -59,7 +60,7 @@ class MULX {
 
   get IsEmpty() {
     this.isEmpty = true;
-    for (var i = 0; i < this.cport.length; i++) {
+    for (var i = 0; i < this.cports.length; i++) {
       if (this.cport[i].isLinked) {
         this.isEmpty = false;
       }
@@ -71,12 +72,12 @@ class MULX {
     return this.el.getAttribute("points");
   }
 
-  get type() {
-    return this.el.getAttribute("type");
+  get Type() {
+    return this.type;
   }
 
-  set type(value) {
-    this.el.setAttribute("type", value);
+  set Type(value) {
+    this.Type = value;
   }
 
   set Color(color = "C1C1C1") {

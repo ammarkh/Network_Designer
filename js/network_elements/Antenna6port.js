@@ -3,7 +3,7 @@
  */
 
 class Antenna6Port {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
@@ -118,10 +118,6 @@ class Antenna6Port {
 
   get Points() {
     return this.el.getAttribute("points");
-  }
-
-  get type() {
-    return this.el.getAttribute("type");
   }
 
   set Color(color = "C1C1C1") {

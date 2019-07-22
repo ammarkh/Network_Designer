@@ -3,13 +3,14 @@
  */
 
 class RRU4 {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
     this.el.setAttribute("stroke-width", this.width);
     this.el.setAttribute("stroke", this.Color || "#181818");
     this.id = id;
+    this.type = type = "RRU-4-1";
     this.name = name;
     this.eX = x;
     this.eY = y;
@@ -107,8 +108,8 @@ class RRU4 {
     return this.el.getAttribute("points");
   }
 
-  get type() {
-    return this.el.getAttribute("type");
+  get Type() {
+    return this.type;
   }
 
   set Color(color = "C1C1C1") {
