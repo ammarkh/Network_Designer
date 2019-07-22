@@ -882,21 +882,23 @@
     function templateSerialize() {
         var templateBody = document.createElement('tbody');
         engine_elem.forEach((item) => {
-            var tr = document.createElement('tr');
+            if (item.type != "cable") {
+                var tr = document.createElement('tr');
 
-            var tdName = document.createElement('td');
-            tdName.innerText = item.id;
-            tr.appendChild(tdName);
-            var tdType = document.createElement('td');
-            tdType.innerText = item.name;
-            tr.appendChild(tdType);
-            var tdX = document.createElement('td');
-            tdX.innerText = item.eX;
-            tr.appendChild(tdX);
-            var tdY = document.createElement('td');
-            tdY.innerText = item.eY;
-            tr.appendChild(tdY);
-            templateBody.appendChild(tr);
+                var tdName = document.createElement('td');
+                tdName.innerText = item.id;
+                tr.appendChild(tdName);
+                var tdType = document.createElement('td');
+                tdType.innerText = item.Type;
+                tr.appendChild(tdType);
+                var tdX = document.createElement('td');
+                tdX.innerText = item.eX;
+                tr.appendChild(tdX);
+                var tdY = document.createElement('td');
+                tdY.innerText = item.eY;
+                tr.appendChild(tdY);
+                templateBody.appendChild(tr);
+            }
         });
         temp_table.appendChild(templateBody);
 

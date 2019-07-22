@@ -5,6 +5,7 @@ class Cable {
     this.fY = y1;
     this.tY = y2;
     this.id = id;
+    this.type = "cable";
     this.fPort = "";
     this.tPort = "";
     this.fElement = "";
@@ -13,7 +14,7 @@ class Cable {
     this.el = this.CreateElement(x1, y1, x2, y2);
     this.el.setAttribute("stroke-width", 0.7);
     this.el.setAttribute("stroke", "olive");
-    this.el.setAttribute('id', id);
+    this.el.setAttribute("id", id);
   }
 
   CreateElement(x1, x2, y1, y2) {
