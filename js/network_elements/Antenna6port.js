@@ -10,6 +10,7 @@ class Antenna6Port {
     this.el.setAttribute("stroke-width", this.width);
     this.el.setAttribute("stroke", this.Color || "#181818");
     this.id = id;
+    this.type = type = "Antenna6Port";
     this.name = name;
     this.eX = x;
     this.eY = y;
@@ -94,6 +95,14 @@ class Antenna6Port {
 
   get Name() {
     return this.el.getAttribute("name");
+  }
+
+  set Type(value) {
+    this.type = type;
+  }
+
+  get Type() {
+    return this.type;
   }
 
   //return if link is empty;

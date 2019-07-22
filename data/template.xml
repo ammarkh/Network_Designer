@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Template name="template_name" ver="0.1">
+    <Element type="element_type" name="element_name">
+        <coordinitor X="" Y="" />
+        <ports>
+            <port name="port1" index="1">
+                <cable id="">
+                    <from></from>
+                    <to></to>
+                </cable> <!--maybe we need add type for template-->
+            </port>
+        </ports>
+    </Element>
+</Template>

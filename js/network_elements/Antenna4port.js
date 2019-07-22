@@ -3,12 +3,13 @@
  */
 
 class Antenna4Port {
-  constructor(id, x, y, name) {
+  constructor(id, x, y, name, type) {
     this.url = "http://www.w3.org/2000/svg";
     this.el = this.createElement(x, y);
     this.el.setAttribute("id", id);
     this.el.setAttribute("stroke-width", this.width);
     this.el.setAttribute("stroke", this.Color || "#181818");
+    this.type = type = "Antenna4Port";
     this.name = name;
     this.id = id;
     this.eX = x;
@@ -92,6 +93,15 @@ class Antenna4Port {
   get Name() {
     return this.el.getAttribute("name");
   }
+
+  set Type(value) {
+    this.type = value;
+  }
+
+  get Type() {
+    return this.type;
+  }
+
   get Points() {
     return this.el.getAttribute("points");
   }

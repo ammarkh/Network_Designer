@@ -31,6 +31,7 @@
     <script src="./js/network_elements/dport.js"></script>
 
     <script src="./js/network_elements/cable.js"></script>
+    <script src="./js/Controller/serializer.js"></script>
 </head>
 
 <body>
@@ -185,6 +186,41 @@
             </div>
             <!--end of engine graphical space.-->
         </div>
+
+        <!--save template form panel-->
+        <div id='rd-template-form'>
+            <div>
+                <h2>NEW TEMPLATE FORM</h2>
+                <p>
+                    <h4>Template Name</h4>
+                    <input type="text" placeholder="insert template name " id='temp_name' />
+                </p>
+                <p>
+                    Becarful This Template Will Contains The Elements Below
+                    <table id='temp_element'>
+                        <thead>
+                            <caption>Template Elements</caption>
+                            <tr>
+                                <th> Name </th>
+                                <th>Type</th>
+                                <th>Point X</th>
+                                <th>Point Y</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </p>
+                <!--template control-->
+                <p>
+                    <button onclick="saveTemplateInServer()">
+                        Save template
+                    </button>
+                    <button>
+                        Cancel
+                    </button>
+                </p>
+            </div>
+
+        </div>
     </div>
 </body>
 
@@ -314,6 +350,9 @@
     var ddl_cb_t_element = document.querySelector('#ddl_cb_t_element');
     var cable_menu = document.getElementsByClassName('cb-mnu')[0];
     var cableContrl = document.querySelector('#addcb');
+    var temp_table = document.querySelector('#temp_element');
+    var temp_panel = document.querySelector('#rd-template-form');
+    var temp_name = document.querySelector('#temp_name');
     /*************************************************************/
     /*************************************************************/
     /**********************function of engine*********************/
@@ -840,7 +879,33 @@
       *---------------------------Function not -----------------------------------*
       **/
 
+    function templateSerialize() {
+        var templateBody = document.createElement('tbody');
+        engine_elem.forEach((item) => {
+            var tr = document.createElement('tr');
+
+            var tdName = document.createElement('td');
+            tdName.innerText = item.id;
+            tr.appendChild(tdName);
+            var tdType = document.createElement('td');
+            tdType.innerText = item.name;
+            tr.appendChild(tdType);
+            var tdX = document.createElement('td');
+            tdX.innerText = item.eX;
+            tr.appendChild(tdX);
+            var tdY = document.createElement('td');
+            tdY.innerText = item.eY;
+            tr.appendChild(tdY);
+            templateBody.appendChild(tr);
+        });
+        temp_table.appendChild(templateBody);
+
+        temp_panel.style.display = "block";
+    }
+
     function saveTemplate() {
+
+        templateSerialize();
         /*  readJSON('D:\\data.jsons');
           function readJSON(path) {
               var xhr = new XMLHttpRequest();
@@ -868,19 +933,31 @@
 
 
 
+        /*
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: './data.json',
+                        data: JSON.stringify(engine_elem),
+                        success: function (res) {
+                            console.log('success');
+                        },
+                        dataType: 'json'
+                    });
+                });*/
 
-        $(document).ready(function () {
-            $.ajax({
-                type: "POST",
-                url: './data.json',
-                data: JSON.stringify(engine_elem),
-                success: function (res) {
-                    console.log('success');
-                },
-                dataType: 'json'
-            });
-        });
+        //   var template = JSON.stringify(engine_elem);
+        // console.log(template);
     }
+
+    //save template element.
+
+    saveTemplateInServer = () => {
+        var ser = new Serializer(engine_elem, 'xml', temp_name.value, 1);
+        ser.serialize();
+        console.log(ser.Template);
+    }
+
 
 </script>
 
